@@ -1,0 +1,44 @@
+Importar dados, string vazio como NA e string como fatores.
+```{r}
+dados = read.csv("data/Churn.csv", sep = ";", na.strings = "", stringsAsFactors = T)
+head(dados)
+summary(dados)
+```
+Nomear colunas .
+```{r}
+colnames(dados) = c("Id", "Score", "Estado", "Genero", "Idade", "Patrimonio", "Saldo", "Produtos", "Carta_Credito", "Ativo", "Salario", "Saiu")
+head(dados)
+```
+Explorar dados, colunas categoricas.
+```{r}
+counts = table(dados$Estado)
+barplot(counts, main = "Estados", xlab = "Estados")
+
+counts = table(dados$Genero)
+barplot(counts, main = "Generos", xlab = "Generos")
+```
+Explorar dados, colunas numericas. (Score)
+```{r}
+summary(dados$Score)
+boxplot(dados$Score)
+hist(dados$Score)
+```
+Explorar dados, colunas numericas. (Idade)
+```{r}
+summary(dados$Idade)
+boxplot(dados$Idade)
+hist(dados$Idade)
+```
+Explorar dados, colunas numericas. (Saldo)
+```{r}
+summary(dados$Saldo)
+boxplot(dados$Saldo)
+hist(dados$Saldo)
+
+```
+Explorar dados, colunas numericas. (Salario)
+```{r}
+summary(dados$Salario)
+boxplot(dados$Salario)
+hist(dados$Salario, outline = F)
+```

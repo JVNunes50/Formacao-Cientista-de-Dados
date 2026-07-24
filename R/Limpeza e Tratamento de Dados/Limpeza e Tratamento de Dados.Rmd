@@ -1,0 +1,96 @@
+Importar dados, string vazio como NA e string como fatores.
+```{r}
+dados = read.csv("data/Churn.csv", sep = ";", na.strings = "", stringsAsFactors = T)
+head(dados)
+summary(dados)
+```
+Nomear colunas .
+```{r}
+colnames(dados) = c("Id", "Score", "Estado", "Genero", "Idade", "Patrimonio", "Saldo", "Produtos", "Carta_Credito", "Ativo", "Salario", "Saiu")
+head(dados)
+```
+Valores faltantes - NAs
+```{r}
+dados[!complete.cases(dados), ]
+```
+Tratar Salario
+```{r}
+summary(dados$Salario)
+#Ver mediana
+median(dados$Salario,na.rm = T)
+#Atribuir mediana a NAs
+dados[is.na(dados$Salario),]$Salario = median(dados$Salario,na.rm = T)
+#Buscar NAs em salario
+dados[!complete.cases(dados$Salario), ]
+```
+Padroniza Generos
+```{r}
+unique(dados$Genero)
+summary(dados$Genero)
+#Transformar F e Fem em Feminino
+# Trasformar NAs e M em Masculino (Moda)
+dados[is.na(dados$Genero) | dados$Genero == "M", ]$Genero = "Masculino"
+dados[dados$Genero == "F" | dados$Genero == "Fem", ]$Genero = "Feminino"
+#Ver resultado
+summary(dados$Genero)
+#Remover levels nao utilizados
+dados$Genero = factor(dados$Genero)
+#Visualizar novamente
+summary(dados$Genero)
+```
+Idade fora do dominio (Idades anormais)
+```{r}
+summary(dados$Idade)
+#Idades fora do dominio numerico - Ver idades anormais
+dados[dados$Idade < 0 | dados$Idade > 110, ]$Idade
+#Nao possui idade
+dados[is.na(dados$Idade), ]
+#Mediana
+median(dados$Idade)
+#Substituir idade anormais pela mediana
+dados[dados$Idade < 0 | dados$Idade > 110, ] $Idade = median(dados$Idade)
+#Buscar novamente as idades
+dados[dados$Idade < 0 | dados$Idade > 110, ]
+summary(dados$Idade)
+```
+Dados duplicados
+```{r}
+#Buscar duplicidade pelo Id
+x = dados[duplicated(dados$Id), ]
+x
+#
+dados = dados[-c(82),]
+#Buscar linha que possui duplicidade
+dados[dados$Id == x$Id ,  ]
+#Verificar duplicidade
+x = dados[duplicated(dados$Id), ]
+x
+```
+Estado fora do dominio
+```{r}
+#Fora do dominio categorico
+unique(dados$Estado)
+summary(dados$Estado)
+#Preencher com a moda = RS
+dados[!dados$Estado %in% c("RS", "SC", "PR"), ]$Estado = "RS"
+summary(dados$Estado)
+#Remover fatores nao usados
+dados$Estado = factor(dados$Estado)
+#Visualizar novamente
+summary(dados$Estado)
+```
+Valores fora do padrao
+```{r}
+#Outliers, criando um parametro com desvio padrao
+desv = sd(dados$Salario, na.rm = T)
+dados[dados$Salario >= 2 *desv  , ]$Salario
+#Outra forma, resultado semelhante, mas sem os NAs
+boxplot(dados$Salario)
+x = boxplot(dados$Salario)$out
+x
+#Atualizar todos para mediana
+median(dados$Salario,)
+dados[dados$Salario >= 2 * desv , ]$Salario = median(dados$Salario)
+#Checamos se sairam os outliers
+dados[dados$Salario >= 2 * desv, ]$Salario
+```

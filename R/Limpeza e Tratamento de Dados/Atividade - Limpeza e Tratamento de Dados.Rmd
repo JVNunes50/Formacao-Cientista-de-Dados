@@ -1,0 +1,57 @@
+Tratar dados 'tempo.csv'
+
+Aparencia: Sol, Nublado e chuva
+Temperatura: -130 ~ 130F
+Umidade: 0 ~ 100
+Jogar: Sim ou Nao
+
+
+Importar planilha 
+```{r}
+dados = read.csv("data/tempo.csv", sep = ";", na.strings = "", stringsAsFactors = T)
+head(dados)
+summary(dados)
+```
+Tratar Aparencia
+```{r}
+#Substituir menos por sol.
+dados[dados$Aparencia == "menos", ]$Aparencia = "sol"
+#Apagar factor menos.
+dados$Aparencia = factor(dados$Aparencia)
+
+summary(dados$Aparencia)
+```
+
+Tratar temperatura
+```{r}
+#Verificar se existem dados fora padrao.
+dados[dados$Temperatura < -130 | dados$Temperatura > 130, ]$Temperatura
+#Calcular a mediana.
+median(dados$Temperatura)
+#Pegar os numeros fora do padrao e adicionar a mediana.
+dados[dados$Temperatura < -130 | dados$Temperatura > 130, ]$Temperatura = median(dados$Temperatura)
+
+summary(dados$Temperatura)
+```
+Tratar Umidade
+```{r}
+#Verificar dados fora do padrao.
+dados[dados$Umidade < 0 | dados$Umidade > 100, ]$Umidade
+#Verificar linhas que possuem umidade NAs.
+dados[is.na(dados$Umidade), ]
+#Calcular mediana.
+median(dados$Umidade, na.rm = T)
+#Substituir NAs pela mediana.
+dados[is.na(dados$Umidade), ]$Umidade = median(dados$Umidade, na.rm = T)
+#Substituir valores fora do padrao pela mediana.
+dados[dados$Umidade < 0 | dados$Umidade > 100, ]$Umidade = median(dados$Umidade, na.rm = T)
+
+summary(dados$Umidade)
+```
+Tratar Vento
+```{r}
+#Pegar todos os NAs e alterar para FALSO.
+dados[is.na(dados$Vento), ]$Vento = "FALSO"
+
+summary(dados$Vento)
+```
