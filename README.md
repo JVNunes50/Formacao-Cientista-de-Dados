@@ -6,7 +6,7 @@ Repositório criado para documentar a minha jornada de aprendizado em Ciência d
 
 ## 📁 Estrutura do Repositório
 
-* 🐍 **[Python](./Python)**: Conteúdos, exercícios e códigos desenvolvidos em Python no VSCode usando o Jupyter Notebook.
+* 🐍 **[Python](./Python)**: Conteúdos, exercícios e códigos desenvolvidos em Python no VS Code usando o Jupyter Notebook.
 * 📈 **[R](./R)**: Conteúdos, exercícios e códigos desenvolvidos na linguagem R no RStudio.
 
 ---
@@ -14,7 +14,7 @@ Repositório criado para documentar a minha jornada de aprendizado em Ciência d
 ## 🛠️ Tecnologias e Ferramentas
 
 * **Linguagem:** Python e R
-* **Ambiente:** VSCode / RStudio
+* **Ambiente:** VS Code / RStudio
 * **Bibliotecas Principais:**
   * **Python:** 
   * **R:** 
