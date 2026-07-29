@@ -16,7 +16,7 @@ Repositório criado para documentar a minha jornada de aprendizado em Ciência d
 * **Linguagem:** Python e R
 * **Ambiente:** VS Code / RStudio
 * **Bibliotecas Principais:**
-  * **Python:** pandas, seaborn, statistics
+  * **Python:** Pandas, Seaborn, Statistics
   * **R:** 
 
 ---
